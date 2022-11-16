@@ -50,5 +50,12 @@ public class BookingDto implements Serializable {
         this.checkOut = checkOut;
     }
 
-
+    @Override
+    public String toString() {
+        return "BookingDto{" +
+                "idBooking=" + idBooking +
+                ", checkIn=" + checkIn +
+                ", checkOut=" + checkOut +
+                '}';
+    }
 }
