@@ -13,8 +13,16 @@ public class BookingDto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_booking")
     private Long idBooking;
+    @Column(name = "check_in")
     private LocalDate checkIn;
+    @Column(name = "check_out")
     private LocalDate checkOut;
+    @Column(name = "id_user")
+    private Long idUser;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user", insertable = false, updatable = false)
+    private UserDto userDto;
 
     public BookingDto(){
 
