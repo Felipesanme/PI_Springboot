@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface UserRepositoryDao {
     List<UserDto> getAllUsers();
-    UserDto findUserById(Long idUser);
+    UserDto findUserById(String idUser);
     UserDto createUser(UserDto userDto);
-    boolean updateUser(Long idUser, UserDto userDto);
-    boolean deleteUser(Long idUser);
+    boolean updateUser(String idUser, UserDto userDto);
+    boolean deleteUser(String idUser);
 
 }

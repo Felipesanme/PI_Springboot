@@ -11,32 +11,32 @@ import java.util.List;
 public class UserRepositoryImpl implements UserRepositoryDao {
 
     @Autowired
-    private UserCrudRepository userCrudRepository;
+    private UserMongoRepository userMongoRepository;
 
     @Override
     public List<UserDto> getAllUsers() {
         List<UserDto> usersFound = new ArrayList<>();
-        userCrudRepository.findAll().forEach(user -> usersFound.add(user));
+        userMongoRepository.findAll().forEach(user -> usersFound.add(user));
         return usersFound;
     }
 
     @Override
-    public UserDto findUserById(Long idUser) {
-        return userCrudRepository.findById(idUser).get();
+    public UserDto findUserById(String idUser) {
+        return userMongoRepository.findById(idUser).get();
     }
 
     @Override
     public UserDto createUser(UserDto userDto) {
-        return userCrudRepository.save(userDto);
+        return userMongoRepository.save(userDto);
     }
 
     @Override
-    public boolean updateUser(Long idUser, UserDto userDto) {
+    public boolean updateUser(String idUser, UserDto userDto) {
         UserDto userFound = findUserById(idUser);
         if (userFound != null){
             userFound.setFullName(userDto.getFullName());
             userFound.setEmail(userDto.getEmail());
-            userCrudRepository.save(userFound);
+            userMongoRepository.save(userFound);
             return true;
         }else{
             return false;
@@ -44,10 +44,10 @@ public class UserRepositoryImpl implements UserRepositoryDao {
     }
 
     @Override
-    public boolean deleteUser(Long idUser) {
+    public boolean deleteUser(String idUser) {
         UserDto userFound = findUserById(idUser);
         if(userFound != null){
-            userCrudRepository.delete(userFound);
+            userMongoRepository.delete(userFound);
             return  true;
         }else{
             return false;

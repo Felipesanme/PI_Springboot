@@ -11,7 +11,7 @@ import java.util.List;
 public class BookingRepositoryImpl implements BookingRepositoryDao {
 
     @Autowired
-    private BookingCrudRepository bookingCrudRepository;
+    private BookingMongoRepository bookingCrudRepository;
 
 
     @Override
@@ -22,7 +22,7 @@ public class BookingRepositoryImpl implements BookingRepositoryDao {
     }
 
     @Override
-    public BookingDto findBookingById(Long idBooking) {
+    public BookingDto findBookingById(String idBooking) {
         return bookingCrudRepository.findById(idBooking).get();
     }
 
@@ -32,7 +32,7 @@ public class BookingRepositoryImpl implements BookingRepositoryDao {
     }
 
     @Override
-    public boolean updateBooking(Long idBooking, BookingDto bookingDto) {
+    public boolean updateBooking(String idBooking, BookingDto bookingDto) {
         BookingDto bookingFound = findBookingById(idBooking);
         if(bookingFound != null){
             bookingFound.setCheckIn(bookingDto.getCheckIn());
@@ -46,7 +46,7 @@ public class BookingRepositoryImpl implements BookingRepositoryDao {
     }
 
     @Override
-    public boolean deleteBooking(Long idBooking) {
+    public boolean deleteBooking(String idBooking) {
         BookingDto bookingFound = findBookingById(idBooking);
         if(bookingFound != null){
             bookingCrudRepository.delete(bookingFound);

@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserRepositoryDao{
     }
 
     @Override
-    public UserDto findUserById(Long idUser) {
+    public UserDto findUserById(String idUser) {
         return userRepositoryDao.findUserById(idUser);
     }
 
@@ -30,12 +30,12 @@ public class UserServiceImpl implements UserRepositoryDao{
     }
 
     @Override
-    public boolean updateUser(Long idUser, UserDto userDto) {
+    public boolean updateUser(String idUser, UserDto userDto) {
         return userRepositoryDao.updateUser(idUser,userDto);
     }
 
     @Override
-    public boolean deleteUser(Long idUser) {
+    public boolean deleteUser(String idUser) {
         return userRepositoryDao.deleteUser(idUser);
     }
 }

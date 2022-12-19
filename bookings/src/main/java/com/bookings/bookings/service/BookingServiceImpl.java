@@ -19,7 +19,7 @@ public class BookingServiceImpl implements BookingRepositoryDao {
     }
 
     @Override
-    public BookingDto findBookingById(Long idBooking) {
+    public BookingDto findBookingById(String idBooking) {
         return bookingRepositoryDao.findBookingById(idBooking);
     }
 
@@ -29,12 +29,12 @@ public class BookingServiceImpl implements BookingRepositoryDao {
     }
 
     @Override
-    public boolean updateBooking(Long idBooking, BookingDto bookingDto) {
+    public boolean updateBooking(String idBooking, BookingDto bookingDto) {
         return bookingRepositoryDao.updateBooking(idBooking, bookingDto);
     }
 
     @Override
-    public boolean deleteBooking(Long idBooking) {
+    public boolean deleteBooking(String idBooking) {
         return bookingRepositoryDao.deleteBooking(idBooking);
     }
 }

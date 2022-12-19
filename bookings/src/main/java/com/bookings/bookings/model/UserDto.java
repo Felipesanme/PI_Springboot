@@ -1,24 +1,27 @@
 package com.bookings.bookings.model;
 
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 import java.util.List;
 
-@Entity
-@Table(name = "users")
+//@Entity
+//@Table(name = "users")
+@Document(collection = "user_collection_MDB")
 public class UserDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_user")
-    private Long idUser;
-    @Column(name = "full_name")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "id_user")
+    private String idUser;
+//    @Column(name = "full_name")
     private String fullName;
     private String email;
 
-    @OneToMany(mappedBy = "userDto")
+//    @OneToMany(mappedBy = "userDto")
     private List<BookingDto> bookingDtos;
 
     public UserDto(String fullName, String email) {
@@ -31,11 +34,11 @@ public class UserDto implements Serializable {
 
     }
 
-    public Long getIdUser() {
+    public String getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(Long idUser) {
+    public void setIdUser(String idUser) {
         this.idUser = idUser;
     }
 

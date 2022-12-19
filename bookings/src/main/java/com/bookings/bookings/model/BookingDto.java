@@ -1,27 +1,30 @@
 package com.bookings.bookings.model;
 
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "bookings")
+//@Entity
+//@Table(name = "bookings")
+@Document(collection = "booking_collection")
 public class BookingDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_booking")
-    private Long idBooking;
-    @Column(name = "check_in")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "id_booking")
+    private String idBooking;
+//    @Column(name = "check_in")
     private LocalDate checkIn;
-    @Column(name = "check_out")
+//    @Column(name = "check_out")
     private LocalDate checkOut;
-    @Column(name = "id_user")
-    private Long idUser;
+//    @Column(name = "id_user")
+    private String idUser;
 
-    @ManyToOne
-    @JoinColumn(name = "id_user", insertable = false, updatable = false)
+//    @ManyToOne
+//    @JoinColumn(name = "id_user", insertable = false, updatable = false)
     private UserDto userDto;
 
     public BookingDto(){
@@ -34,11 +37,11 @@ public class BookingDto implements Serializable {
         this.checkOut = checkOut;
     }
 
-    public Long getIdBooking() {
+    public String getIdBooking() {
         return idBooking;
     }
 
-    public void setIdBooking(Long idBooking) {
+    public void setIdBooking(String idBooking) {
         this.idBooking = idBooking;
     }
 

@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDto> findUserById(@PathVariable("id") Long idUser){
+    public ResponseEntity<UserDto> findUserById(@PathVariable("id") String idUser){
         return new ResponseEntity<>(userService.findUserById(idUser), HttpStatus.OK);
     }
 
@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateUser(@PathVariable("id") Long idUser, @RequestBody UserDto userDto){
+    public ResponseEntity updateUser(@PathVariable("id") String idUser, @RequestBody UserDto userDto){
         boolean isUpdated = userService.updateUser(idUser, userDto);
         if (isUpdated){
             return new ResponseEntity(HttpStatus.OK);
@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteUser(@PathVariable("id") Long idUser){
+    public ResponseEntity deleteUser(@PathVariable("id") String idUser){
         boolean isDelete = userService.deleteUser(idUser);
         if (isDelete){
             return new ResponseEntity(HttpStatus.OK);
