@@ -1,7 +1,7 @@
 package com.bookings.bookings.controller;
 
 import com.bookings.bookings.model.UserDto;
-import com.bookings.bookings.service.UserService;
+import com.bookings.bookings.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +13,10 @@ import java.util.List;
 @RequestMapping("/v1/users")
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     @Autowired
-    public UserController(UserService userService){
+    public UserController(UserServiceImpl userService){
         this.userService = userService;
     }
 

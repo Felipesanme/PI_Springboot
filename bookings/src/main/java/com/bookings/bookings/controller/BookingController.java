@@ -2,7 +2,7 @@ package com.bookings.bookings.controller;
 
 
 import com.bookings.bookings.model.BookingDto;
-import com.bookings.bookings.service.BookingService;
+import com.bookings.bookings.service.BookingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +14,10 @@ import java.util.List;
 @RequestMapping("/v1/bookings")
 public class BookingController {
 
-    private final BookingService bookingService;
+    private final BookingServiceImpl bookingService;
 
     @Autowired
-    public BookingController (BookingService bookingService){
+    public BookingController (BookingServiceImpl bookingService){
         this.bookingService = bookingService;
     }
 
