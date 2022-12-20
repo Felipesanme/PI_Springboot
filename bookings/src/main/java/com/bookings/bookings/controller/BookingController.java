@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/bookings")
+@CrossOrigin(origins = "*")
 public class BookingController {
 
     private final BookingServiceImpl bookingService;

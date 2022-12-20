@@ -1,5 +1,6 @@
 package com.bookings.bookings.repository;
 
+import com.bookings.bookings.model.User;
 import com.bookings.bookings.model.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,19 +12,24 @@ import java.util.Optional;
 @Repository
 public class UserRepositoryImpl implements UserRepositoryDao {
 
+
+    private final UserMongoRepository userMongoRepository;
+
     @Autowired
-    private UserMongoRepository userMongoRepository;
+    public UserRepositoryImpl(UserMongoRepository userMongoRepository) {
+        this.userMongoRepository = userMongoRepository;
+    }
 
     @Override
-    public List<UserDto> getAllUsers() {
-        List<UserDto> usersFound = new ArrayList<>();
+    public List<User> getAllUsers() {
+        List<User> usersFound = new ArrayList<>();
         userMongoRepository.findAll().forEach(user -> usersFound.add(user));
         return usersFound;
     }
 
     @Override
-    public UserDto findUserById(String idUser) {
-        Optional<UserDto> userFound = userMongoRepository.findById(idUser);
+    public User findUserById(String idUser) {
+        Optional<User> userFound = userMongoRepository.findById(idUser);
         if(userFound.isPresent()){
             return userFound.get();
         }else{
@@ -32,28 +38,27 @@ public class UserRepositoryImpl implements UserRepositoryDao {
     }
 
     @Override
-    public UserDto createUser(UserDto userDto) {
-        return userMongoRepository.save(userDto);
+    public User createUser(UserDto userDto) {
+        User user =new User(userDto);
+        return userMongoRepository.save(user);
     }
 
     @Override
-    public boolean updateUser(String idUser, UserDto userDto) {
-        UserDto userFound = findUserById(idUser);
+    public User updateUser(String idUser, UserDto userDto) {
+        User userFound = findUserById(idUser);
         if (userFound != null){
             userFound.setFullName(userDto.getFullName());
             userFound.setEmail(userDto.getEmail());
-            userFound.setIdUser(userDto.getIdUser());
             userFound.setPassword(userDto.getPassword());
-            userMongoRepository.save(userFound);
-            return true;
+            return userMongoRepository.save(userFound);
         }else{
-            return false;
+            return null;
         }
     }
 
     @Override
-    public boolean deleteUser(String idUser) {
-        UserDto userFound = findUserById(idUser);
+    public Boolean deleteUser(String idUser) {
+        User userFound = findUserById(idUser);
         if(userFound != null){
             userMongoRepository.delete(userFound);
             return  true;
@@ -63,8 +68,8 @@ public class UserRepositoryImpl implements UserRepositoryDao {
     }
 
     @Override
-    public UserDto findByEmail(String email) {
-        Optional<UserDto> userFound = userMongoRepository.findByEmail(email);
+    public User findByEmail(String email) {
+        Optional<User> userFound = userMongoRepository.findByEmail(email);
         if (userFound.isPresent()){
             return userFound.get();
         }else{

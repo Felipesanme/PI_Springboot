@@ -1,7 +1,8 @@
 package com.bookings.bookings.controller;
 
+import com.bookings.bookings.model.User;
 import com.bookings.bookings.model.UserDto;
-import com.bookings.bookings.service.UserServiceImpl;
+import com.bookings.bookings.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,47 +12,50 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/users")
+@CrossOrigin(origins = "*")
 public class UserController {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     @Autowired
-    public UserController(UserServiceImpl userService){
+    public UserController(UserService userService){
         this.userService = userService;
     }
 
     @GetMapping
-    public ResponseEntity<List<UserDto>> getAllUsers(){
+    public ResponseEntity<List<User>> getAllUsers(){
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDto> findUserById(@PathVariable("id") String idUser){
+    public ResponseEntity<User> findUserById(@PathVariable ("id") String idUser){
         return new ResponseEntity<>(userService.findUserById(idUser), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto){
-        return new ResponseEntity<>(userService.createUser(userDto), HttpStatus.CREATED);
+    public ResponseEntity<User> createUser(@RequestBody UserDto userDto){
+        User user = userService.createUser(userDto);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateUser(@PathVariable("id") String idUser, @RequestBody UserDto userDto){
-        boolean isUpdated = userService.updateUser(idUser, userDto);
-        if (isUpdated){
-            return new ResponseEntity(HttpStatus.OK);
-        }else{
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+    public ResponseEntity<User> updateUser(@PathVariable String idUser, @RequestBody UserDto userDto){
+
+        User user = userService.updateUser(idUser, userDto);
+        if (user != null){
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }else {
+            return new ResponseEntity("Error updating user", HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteUser(@PathVariable("id") String idUser){
-        boolean isDelete = userService.deleteUser(idUser);
+    public ResponseEntity <Boolean> deleteUser (@PathVariable String idUser){
+        Boolean isDelete = userService.deleteUser(idUser);
         if (isDelete){
-            return new ResponseEntity(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }else{
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

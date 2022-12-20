@@ -1,38 +1,46 @@
 package com.bookings.bookings.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 
-//@Entity
-//@Table(name = "users")
 
-public class UserDto implements Serializable {
+@Document(collection = "user_collection_MDB")
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id_user")
-
-//    @Column(name = "full_name")
+    private String idUser;
     private String fullName;
     private String email;
-
     private String password;
 
-//    @OneToMany(mappedBy = "userDto")
-//    private List<BookingDto> bookingDtos;
+    public User(){
 
-    public UserDto(String fullName, String email, String password) {
+    }
 
+    public User(String fullName, String email, String password) {
         this.fullName = fullName;
         this.email = email;
         this.password = password;
     }
 
-    public UserDto(){
 
+    public User(UserDto userDto) {
+        this.fullName = userDto.getFullName();
+        this.email = userDto.getEmail();
+        this.password = userDto.getPassword();
+
+    }
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser= idUser;
     }
 
     public String getFullName() {
@@ -59,4 +67,3 @@ public class UserDto implements Serializable {
         this.password = password;
     }
 }
-

@@ -1,8 +1,8 @@
 package com.bookings.bookings.security.jwt;
 
-import com.bookings.bookings.model.UserDto;
+import com.bookings.bookings.model.User;
 import com.bookings.bookings.service.UserDetailServiceAuth;
-import com.bookings.bookings.service.UserServiceImpl;
+import com.bookings.bookings.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,7 +24,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private OperationJwt operationJwt;
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @Autowired
     private UserDetailServiceAuth userDetailServiceAuth;
@@ -37,7 +37,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             String idUser = operationJwt.extractSubject(jwt);
 
             if (idUser != null && SecurityContextHolder.getContext().getAuthentication() == null){
-                UserDto userFound = userService.findUserById(idUser);
+                User userFound = userService.findUserById(idUser);
 
                 if (operationJwt.validateJwt(jwt, userFound)){
                     UserDetails userDetails = userDetailServiceAuth.loadUserByUsername(userFound.getEmail());

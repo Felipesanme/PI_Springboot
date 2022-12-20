@@ -1,9 +1,8 @@
 package com.bookings.bookings.service;
 
-import com.bookings.bookings.model.UserDto;
-import com.bookings.bookings.repository.UserRepositoryImpl;
+import com.bookings.bookings.model.User;
+import com.bookings.bookings.repository.UserRepositoryDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,12 +14,12 @@ import java.util.ArrayList;
 public class UserDetailServiceAuth implements UserDetailsService {
 
     @Autowired
-    private UserRepositoryImpl userRepository;
+    private UserRepositoryDao userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserDto userFound = userRepository.findByEmail(email);
-        return new User(userFound.getEmail(),"{noop}"+userFound.getPassword(),
+        User userFound = userRepository.findByEmail(email);
+        return new org.springframework.security.core.userdetails.User (userFound.getEmail(),"{noop}"+userFound.getPassword(),
                 new ArrayList<>());
     }
 }

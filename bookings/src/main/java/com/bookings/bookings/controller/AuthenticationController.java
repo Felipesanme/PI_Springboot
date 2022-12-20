@@ -2,9 +2,9 @@ package com.bookings.bookings.controller;
 
 import com.bookings.bookings.model.LoginDto;
 import com.bookings.bookings.model.TokenDto;
-import com.bookings.bookings.model.UserDto;
+import com.bookings.bookings.model.User;
 import com.bookings.bookings.security.jwt.OperationJwt;
-import com.bookings.bookings.service.BookingServiceImpl;
+import com.bookings.bookings.service.UserService;
 import com.bookings.bookings.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,14 +24,14 @@ public class AuthenticationController {
 
 
     private final OperationJwt operationJwt;
-    private final UserServiceImpl userService;
-    private final BookingServiceImpl bookingService;
+    private final UserService userService;
+//    private final BookingServiceImpl bookingService;
 
     @Autowired
-    public AuthenticationController(OperationJwt operationJwt, UserServiceImpl userService, BookingServiceImpl bookingService) {
+    public AuthenticationController(OperationJwt operationJwt, UserServiceImpl userService) {
         this.operationJwt = operationJwt;
         this.userService = userService;
-        this.bookingService = bookingService;
+//        this.bookingService = bookingService;
     }
 
     @Autowired
@@ -41,7 +41,7 @@ public class AuthenticationController {
     @PostMapping
     public ResponseEntity<TokenDto> generateJwt(@RequestBody LoginDto loginDto){
 
-        UserDto userFound = userService.findByEmail(loginDto.getEmail());
+        User userFound = userService.findByEmail(loginDto.getEmail());
         if(userFound!= null){
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     loginDto.getEmail(),loginDto.getPassword()));

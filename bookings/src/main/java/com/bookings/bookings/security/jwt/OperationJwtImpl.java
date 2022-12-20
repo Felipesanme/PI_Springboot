@@ -1,6 +1,6 @@
 package com.bookings.bookings.security.jwt;
 
-import com.bookings.bookings.model.UserDto;
+import com.bookings.bookings.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -12,11 +12,11 @@ public class OperationJwtImpl implements OperationJwt {
     final String keySecret = "felipeADA123+";
 
     @Override
-    public String generateJwt(UserDto userDto, Calendar expirationDate) {
+    public String generateJwt(User user, Calendar expirationDate) {
         ;
         return Jwts.builder()
-                .setSubject(userDto.getIdUser())
-                .claim("fullName",userDto.getFullName())
+                .setSubject(user.getIdUser())
+                .claim("fullName",user.getFullName())
                 .setIssuedAt(new Date())
                 .setExpiration(expirationDate.getTime())
                 .signWith(SignatureAlgorithm.HS256,keySecret)
@@ -24,9 +24,9 @@ public class OperationJwtImpl implements OperationJwt {
     }
 
     @Override
-    public Boolean validateJwt(String jwt, UserDto userDto) {
+    public Boolean validateJwt(String jwt, User user) {
         Boolean isJwtExpired =returnClaims(jwt).getExpiration().before(new Date());
-        Boolean isValidJwt = userDto.getIdUser().equals(extractSubject(jwt)) && ! isJwtExpired;
+        Boolean isValidJwt = user.getIdUser().equals(extractSubject(jwt)) && ! isJwtExpired;
         return isValidJwt;
     }
 
