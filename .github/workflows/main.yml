@@ -18,7 +18,7 @@ jobs:
          java-version: 11
          distribution: temurin
       - name: clean project
-        run: mvn clean
+        run: mvn clean --file *.pom
       - name: run the test
         run: mvn test
       - name: creation .jar and install
