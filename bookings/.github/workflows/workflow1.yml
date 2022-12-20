@@ -20,5 +20,5 @@ jobs:
         run: mvn clean
       - name: run the test
         run: mvn test
-      - name: creation .jar and installing
+      - name: creation .jar and install
         run: mvn install
