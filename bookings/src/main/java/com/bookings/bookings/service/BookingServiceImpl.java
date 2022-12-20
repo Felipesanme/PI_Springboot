@@ -37,4 +37,9 @@ public class BookingServiceImpl implements BookingRepositoryDao {
     public boolean deleteBooking(String idBooking) {
         return bookingRepositoryDao.deleteBooking(idBooking);
     }
+
+    @Override
+    public BookingDto findByEmail(String email) {
+        return bookingRepositoryDao.findByEmail(email);
+    }
 }

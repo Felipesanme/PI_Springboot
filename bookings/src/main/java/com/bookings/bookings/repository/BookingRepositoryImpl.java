@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class BookingRepositoryImpl implements BookingRepositoryDao {
@@ -37,6 +38,8 @@ public class BookingRepositoryImpl implements BookingRepositoryDao {
         if(bookingFound != null){
             bookingFound.setCheckIn(bookingDto.getCheckIn());
             bookingFound.setCheckOut(bookingDto.getCheckOut());
+            bookingFound.setEmail(bookingDto.getEmail());
+            bookingFound.setPassword(bookingDto.getPassword());
             bookingCrudRepository.save(bookingFound);
             return true;
         }else{
@@ -55,5 +58,15 @@ public class BookingRepositoryImpl implements BookingRepositoryDao {
             return false;
         }
 
+    }
+
+    @Override
+    public BookingDto findByEmail(String email) {
+        Optional<BookingDto> bookingFound = bookingCrudRepository.findByEmail(email);
+        if (bookingFound.isPresent()){
+            return bookingFound.get();
+        }else{
+            return null;
+        }
     }
 }

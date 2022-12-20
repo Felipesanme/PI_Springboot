@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserRepositoryImpl implements UserRepositoryDao {
@@ -22,7 +23,12 @@ public class UserRepositoryImpl implements UserRepositoryDao {
 
     @Override
     public UserDto findUserById(String idUser) {
-        return userMongoRepository.findById(idUser).get();
+        Optional<UserDto> userFound = userMongoRepository.findById(idUser);
+        if(userFound.isPresent()){
+            return userFound.get();
+        }else{
+            return null;
+        }
     }
 
     @Override
@@ -36,6 +42,8 @@ public class UserRepositoryImpl implements UserRepositoryDao {
         if (userFound != null){
             userFound.setFullName(userDto.getFullName());
             userFound.setEmail(userDto.getEmail());
+            userFound.setIdUser(userDto.getIdUser());
+            userFound.setPassword(userDto.getPassword());
             userMongoRepository.save(userFound);
             return true;
         }else{
@@ -51,6 +59,16 @@ public class UserRepositoryImpl implements UserRepositoryDao {
             return  true;
         }else{
             return false;
+        }
+    }
+
+    @Override
+    public UserDto findByEmail(String email) {
+        Optional<UserDto> userFound = userMongoRepository.findByEmail(email);
+        if (userFound.isPresent()){
+            return userFound.get();
+        }else{
+            return null;
         }
     }
 }

@@ -20,21 +20,27 @@ public class BookingDto implements Serializable {
     private LocalDate checkIn;
 //    @Column(name = "check_out")
     private LocalDate checkOut;
+
+    private String email;
+
+    private String password;
 //    @Column(name = "id_user")
-    private String idUser;
+//    private String idUser;
 
 //    @ManyToOne
 //    @JoinColumn(name = "id_user", insertable = false, updatable = false)
-    private UserDto userDto;
+//    private UserDto userDto;
 
     public BookingDto(){
 
     }
 
-    public BookingDto(LocalDate checkIn, LocalDate checkOut) {
+    public BookingDto(LocalDate checkIn, LocalDate checkOut, String email, String password) {
 
         this.checkIn = checkIn;
         this.checkOut = checkOut;
+        this.password = password;
+        this.email = email;
     }
 
     public String getIdBooking() {
@@ -61,12 +67,29 @@ public class BookingDto implements Serializable {
         this.checkOut = checkOut;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "BookingDto{" +
-                "idBooking=" + idBooking +
+                "idBooking='" + idBooking + '\'' +
                 ", checkIn=" + checkIn +
                 ", checkOut=" + checkOut +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

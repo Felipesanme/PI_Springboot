@@ -4,7 +4,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
-import java.util.List;
 
 //@Entity
 //@Table(name = "users")
@@ -21,13 +20,16 @@ public class UserDto implements Serializable {
     private String fullName;
     private String email;
 
-//    @OneToMany(mappedBy = "userDto")
-    private List<BookingDto> bookingDtos;
+    private String password;
 
-    public UserDto(String fullName, String email) {
+//    @OneToMany(mappedBy = "userDto")
+//    private List<BookingDto> bookingDtos;
+
+    public UserDto(String fullName, String email, String password) {
 
         this.fullName = fullName;
         this.email = email;
+        this.password = password;
     }
 
     public UserDto(){
@@ -58,10 +60,18 @@ public class UserDto implements Serializable {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "UserDto{" +
-                "idUser=" + idUser +
+                "idUser='" + idUser + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
                 '}';

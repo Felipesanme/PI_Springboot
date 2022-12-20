@@ -10,4 +10,6 @@ public interface BookingRepositoryDao {
     BookingDto createBooking(BookingDto bookingDto);
     boolean updateBooking (String idBooking, BookingDto bookingDto);
     boolean deleteBooking(String idBooking);
+
+    BookingDto findByEmail(String email);
 }

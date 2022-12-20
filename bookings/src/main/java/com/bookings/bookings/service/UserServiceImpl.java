@@ -38,4 +38,9 @@ public class UserServiceImpl implements UserRepositoryDao{
     public boolean deleteUser(String idUser) {
         return userRepositoryDao.deleteUser(idUser);
     }
+
+    @Override
+    public UserDto findByEmail(String email) {
+        return userRepositoryDao.findByEmail(email);
+    }
 }

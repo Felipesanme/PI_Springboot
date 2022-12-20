@@ -10,5 +10,6 @@ public interface UserRepositoryDao {
     UserDto createUser(UserDto userDto);
     boolean updateUser(String idUser, UserDto userDto);
     boolean deleteUser(String idUser);
+    UserDto findByEmail(String email);
 
 }
