@@ -2,9 +2,11 @@ name: First workflow creation
 on:
   push:
     branches:
+      - main
       - project
   pull request:
     branches:
+      - main
       - project
 jobs:
   test_build:
