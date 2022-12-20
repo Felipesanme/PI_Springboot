@@ -1,5 +1,6 @@
 package com.bookings.bookings.service;
 
+import com.bookings.bookings.model.Booking;
 import com.bookings.bookings.model.BookingDto;
 import com.bookings.bookings.repository.BookingRepositoryDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,38 +9,41 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class BookingServiceImpl implements BookingRepositoryDao {
+public class BookingServiceImpl implements BookingService{
 
-    @Autowired
     private BookingRepositoryDao bookingRepositoryDao;
 
+    @Autowired
+    public BookingServiceImpl (BookingRepositoryDao bookingRepositoryDao){
+        this.bookingRepositoryDao =bookingRepositoryDao;
+    }
     @Override
-    public List<BookingDto> getAllBookings() {
+    public List<Booking> getAllBookings() {
         return bookingRepositoryDao.getAllBookings();
     }
 
     @Override
-    public BookingDto findBookingById(String idBooking) {
+    public Booking findBookingById(String idBooking) {
         return bookingRepositoryDao.findBookingById(idBooking);
     }
 
     @Override
-    public BookingDto createBooking(BookingDto bookingDto) {
+    public Booking createBooking(BookingDto bookingDto) {
         return bookingRepositoryDao.createBooking(bookingDto);
     }
 
     @Override
-    public boolean updateBooking(String idBooking, BookingDto bookingDto) {
+    public Booking updateBooking(String idBooking, BookingDto bookingDto) {
         return bookingRepositoryDao.updateBooking(idBooking, bookingDto);
     }
 
     @Override
-    public boolean deleteBooking(String idBooking) {
+    public Boolean deleteBooking(String idBooking) {
         return bookingRepositoryDao.deleteBooking(idBooking);
     }
 
     @Override
-    public BookingDto findByEmail(String email) {
+    public Booking findByEmail(String email) {
         return bookingRepositoryDao.findByEmail(email);
     }
 }

@@ -1,16 +1,17 @@
 package com.bookings.bookings.service;
 
+import com.bookings.bookings.model.Booking;
 import com.bookings.bookings.model.BookingDto;
 
 import java.util.List;
 
 public interface BookingService {
-    List<BookingDto> getAllBookings();
-    BookingDto findBookingById(String idBooking);
-    BookingDto createBooking(BookingDto bookingDto);
-    boolean updateBooking(Long idBooking,BookingDto bookingDto);
-    boolean deleteBooking(Long idBooking);
+    List<Booking> getAllBookings();
+    Booking findBookingById(String idBooking);
+    Booking createBooking(BookingDto bookingDto);
+    Booking updateBooking(String idBooking,BookingDto bookingDto);
+    Boolean deleteBooking(String idBooking);
 
-    BookingDto findByEmail(String email);
+    Booking findByEmail(String email);
 
 }

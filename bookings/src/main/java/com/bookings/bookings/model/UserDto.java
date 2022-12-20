@@ -23,7 +23,9 @@ public class UserDto implements Serializable {
 
 //    @OneToMany(mappedBy = "userDto")
 //    private List<BookingDto> bookingDtos;
+    public UserDto(){
 
+    }
     public UserDto(String fullName, String email, String password) {
 
         this.fullName = fullName;
@@ -31,9 +33,7 @@ public class UserDto implements Serializable {
         this.password = password;
     }
 
-    public UserDto(){
 
-    }
 
     public String getFullName() {
         return fullName;

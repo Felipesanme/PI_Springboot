@@ -1,15 +1,16 @@
 package com.bookings.bookings.repository;
 
+import com.bookings.bookings.model.Booking;
 import com.bookings.bookings.model.BookingDto;
 
 import java.util.List;
 
 public interface BookingRepositoryDao {
-    List<BookingDto> getAllBookings();
-    BookingDto findBookingById(String idBooking);
-    BookingDto createBooking(BookingDto bookingDto);
-    boolean updateBooking (String idBooking, BookingDto bookingDto);
-    boolean deleteBooking(String idBooking);
+    List<Booking> getAllBookings();
+    Booking findBookingById(String idBooking);
+    Booking createBooking(BookingDto bookingDto);
+    Booking updateBooking (String idBooking, BookingDto bookingDto);
+    Boolean deleteBooking(String idBooking);
 
-    BookingDto findByEmail(String email);
+    Booking findByEmail(String email);
 }
