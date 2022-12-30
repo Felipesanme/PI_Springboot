@@ -46,7 +46,7 @@ public class AuthenticationController {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     loginDto.getEmail(),loginDto.getPassword()));
             Calendar expirationDate = Calendar.getInstance();
-            expirationDate.add(Calendar.MINUTE,5);
+            expirationDate.add(Calendar.MINUTE,20);
             String jwt = operationJwt.generateJwt(userFound,expirationDate);
             TokenDto tokenDto = new TokenDto(jwt,expirationDate.getTime());
             return new ResponseEntity<>(tokenDto, HttpStatus.OK);

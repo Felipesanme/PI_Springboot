@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable String idUser, @RequestBody UserDto userDto){
+    public ResponseEntity<User> updateUser(@PathVariable ("id") String idUser, @RequestBody UserDto userDto){
 
         User user = userService.updateUser(idUser, userDto);
         if (user != null){
@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity <Boolean> deleteUser (@PathVariable String idUser){
+    public ResponseEntity <Boolean> deleteUser (@PathVariable ("id") String idUser){
         Boolean isDelete = userService.deleteUser(idUser);
         if (isDelete){
             return new ResponseEntity<>(HttpStatus.OK);
