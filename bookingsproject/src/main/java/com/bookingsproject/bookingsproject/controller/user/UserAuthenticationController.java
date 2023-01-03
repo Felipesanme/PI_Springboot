@@ -8,6 +8,8 @@ import com.bookingsproject.bookingsproject.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,11 +30,14 @@ public class UserAuthenticationController {
         this.userOperationJwt = userOperationJwt;
         this.userService = userService;
     }
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @PostMapping
     public ResponseEntity<UserTokenDto> generateJwt(@RequestBody UserLoginDto userLogintDto){
         User userFound = userService.findByEmail(userLogintDto.getEmail());
         if (userFound != null){
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogintDto.getEmail(), userLogintDto.getPassword()));
             Calendar dateExpiration = Calendar.getInstance();
             dateExpiration.add(Calendar.MINUTE, 20);
             String jwt = userOperationJwt.generateJwt(userFound, dateExpiration);

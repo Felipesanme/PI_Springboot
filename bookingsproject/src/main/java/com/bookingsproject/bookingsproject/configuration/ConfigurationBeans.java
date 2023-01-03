@@ -1,7 +1,9 @@
 package com.bookingsproject.bookingsproject.configuration;
 
-import com.bookingsproject.bookingsproject.security.booking.jwt.BookingOperationJwtImpl;
+//import com.bookingsproject.bookingsproject.security.booking.jwt.BookingOperationJwtImpl;
+//import com.bookingsproject.bookingsproject.security.booking.jwt.BookingOperationJwt;
 import com.bookingsproject.bookingsproject.security.booking.jwt.BookingOperationJwt;
+import com.bookingsproject.bookingsproject.security.booking.jwt.BookingOperationJwtImpl;
 import com.bookingsproject.bookingsproject.security.user.jwt.UserOperationJwt;
 import com.bookingsproject.bookingsproject.security.user.jwt.UserOperationJwtImpl;
 import org.springframework.context.annotation.Bean;

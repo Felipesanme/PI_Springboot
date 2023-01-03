@@ -8,6 +8,8 @@ import com.bookingsproject.bookingsproject.service.booking.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,15 +24,18 @@ public class BookingAuthenticationController {
     private final BookingService bookingService;
 
     @Autowired
-    public BookingAuthenticationController(BookingOperationJwt bookingoperationJwt, BookingService bookingService) {
-        this.bookingOperationJwt = bookingoperationJwt;
+    public BookingAuthenticationController(BookingOperationJwt bookingOperationJwt, BookingService bookingService) {
+        this.bookingOperationJwt = bookingOperationJwt;
         this.bookingService = bookingService;
     }
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @PostMapping
     public ResponseEntity<BookingTokenDto> generateJwt(@RequestBody BookingLoginDto bookingLoginDto){
         Booking bookingFound = bookingService.findByEmail(bookingLoginDto.getEmail());
         if (bookingFound != null){
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(bookingLoginDto.getEmail(),bookingLoginDto.getPassword()));
             Calendar dateExpiration = Calendar.getInstance();
             dateExpiration.add(Calendar.MINUTE, 20);
             String jwt = bookingOperationJwt.generateJwt(bookingFound, dateExpiration);
