@@ -15,6 +15,13 @@ public class BookingDto implements Serializable {
     public BookingDto() {
     }
 
+    public BookingDto(LocalDate checkIn, LocalDate checkOut, String email, String password) {
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        this.email = email;
+        this.password = password;
+    }
+
     public LocalDate getCheckIn() {
         return checkIn;
     }
