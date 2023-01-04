@@ -33,6 +33,8 @@ public class UserSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/v0/user_auth","/v0/booking_auth").permitAll()
+                .antMatchers("/v2/api-docs","/configuration/ui","/swagger-resources/**","/configuration/security"
+                        ,"/swagger-ui.html","/webjars/**","/swagger-ui/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
