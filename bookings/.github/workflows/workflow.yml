@@ -11,9 +11,11 @@ name: Java CI with Maven
 on:
   push:
     branches:
+      - main
       - project
   pull_request:
     branches:
+      - main
       - project
 
 jobs:
@@ -29,8 +31,8 @@ jobs:
           java-version: 11
           distribution: temurin
           cache: maven
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
+#      - name: Build with Maven
+#        run: mvn -B package --file pom.xml
       - name: clean project
         run: mvn clean
       - name: run the test

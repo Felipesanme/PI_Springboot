@@ -1,8 +1,9 @@
 package com.bookings.bookings.controller;
 
 
+import com.bookings.bookings.model.Booking;
 import com.bookings.bookings.model.BookingDto;
-import com.bookings.bookings.service.BookingServiceImpl;
+import com.bookings.bookings.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,41 +16,42 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class BookingController {
 
-    private final BookingServiceImpl bookingService;
+    private final BookingService bookingService;
 
     @Autowired
-    public BookingController (BookingServiceImpl bookingService){
+    public BookingController (BookingService bookingService){
         this.bookingService = bookingService;
     }
 
     @GetMapping
-    public ResponseEntity<List<BookingDto>> getAllBookings(){
+    public ResponseEntity<List<Booking>> getAllBookings(){
         return new ResponseEntity<>(bookingService.getAllBookings(),HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BookingDto> findUserById(@PathVariable("id") String idBooking){
+    public ResponseEntity<Booking> findUserById(@PathVariable("id") String idBooking){
         return new ResponseEntity<>(bookingService.findBookingById(idBooking), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<BookingDto> createBooking (@RequestBody BookingDto bookingDto){
-        return new ResponseEntity<>(bookingService.createBooking(bookingDto), HttpStatus.CREATED);
+    public ResponseEntity<Booking> createBooking (@RequestBody BookingDto bookingDto){
+        Booking booking = bookingService.createBooking(bookingDto);
+        return new ResponseEntity<>(booking, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateBooking(@PathVariable("id") String idBooking, @RequestBody BookingDto bookingDto){
-        boolean isUpdated = bookingService.updateBooking(idBooking,bookingDto);
-        if(isUpdated){
-            return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Booking> updateBooking(@PathVariable("id") String idBooking, @RequestBody BookingDto bookingDto){
+        Booking booking = bookingService.updateBooking(idBooking,bookingDto);
+        if(booking != null){
+            return new ResponseEntity<>(booking, HttpStatus.OK);
         }else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity("Updating user error",HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteBooking (@PathVariable("id") String idBooking){
-        boolean isDelete = bookingService.deleteBooking(idBooking);
+    public ResponseEntity <Boolean>deleteBooking (@PathVariable("id") String idBooking){
+        Boolean isDelete = bookingService.deleteBooking(idBooking);
         if(isDelete){
             return new ResponseEntity(HttpStatus.OK);
         }else{
